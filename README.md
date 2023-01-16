@@ -19,10 +19,11 @@ This project was developed using the following technologies:
 
 - [NodeJS](https://nodejs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Fastfy](https://www.fastify.io/)
+- [Fastify](https://www.fastify.io/)
 - [Prisma](https://www.prisma.io/)
 - [ViteJS](https://vitejs.dev/)
 - [ReactJS](https://reactjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.io/)
 
