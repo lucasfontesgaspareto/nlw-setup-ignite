@@ -11,7 +11,7 @@
 <br>
 <br>
 
-# HabitUs 💪
+# Habitto.life 💪
 
 ## 🧪 Technologies
 
