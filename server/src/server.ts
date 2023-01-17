@@ -8,4 +8,6 @@ server.get('/', () => {
 
 server.listen({
   port: 4000
+}).then(() => {
+  console.log('Server running')
 })
