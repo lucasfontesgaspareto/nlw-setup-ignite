@@ -4,9 +4,7 @@
   <img src="https://img.shields.io/github/stars/lucasfontesgaspareto/nlw-setup-ignite?label=stars&message=MIT&color=white&labelColor=8257E5" alt="Stars">
 </p>
 
-<h1 align="center">
-  <img alt="nlw-setup-ignite" title="nlw-setup-ignite" src=".github/cover.png" width="800s" />
-</h1>
+![](./.github/cover.png)
 
 <br>
 <br>
@@ -51,7 +49,7 @@ Follow the steps below:
 ### Web
 
 ```bash
-# Install the web dependencies 
+# Install the web dependencies
 $ cd web
 $ npm install
 
@@ -62,7 +60,7 @@ $ npm start
 ### Server
 
 ```bash
-# Install the server dependencies 
+# Install the server dependencies
 $ cd server
 $ npm install
 
@@ -74,7 +72,7 @@ $ npm run dev
 ### Mobile
 
 ```bash
-# Install the mobile dependencies 
+# Install the mobile dependencies
 $ cd mobile
 $ npm install
 
