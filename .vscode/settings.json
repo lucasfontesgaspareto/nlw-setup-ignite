@@ -1,5 +1,4 @@
 {
-  "editor.formatOnSave": true,
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
@@ -11,5 +10,15 @@
   "prettier.jsxSingleQuote": false,
   "prettier.singleQuote": true,
   "prettier.semi": false,
-  "headwind.runOnSave": true
+  "headwind.runOnSave": true,
+  "editor.tabSize": 2,
+  "editor.foldingStrategy": "indentation",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "html.format.indentInnerHtml": true,
+  "editor.wordWrapColumn": 80,
+  "editor.rulers": [80, 120]
 }
