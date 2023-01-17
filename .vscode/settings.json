@@ -10,5 +10,6 @@
   "prettier.bracketSameLine": true,
   "prettier.jsxSingleQuote": false,
   "prettier.singleQuote": true,
-  "prettier.semi": false
+  "prettier.semi": false,
+  "headwind.runOnSave": true
 }
