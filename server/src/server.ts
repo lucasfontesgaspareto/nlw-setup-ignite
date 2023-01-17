@@ -6,7 +6,7 @@ const server = Fastify()
 const prisma = new PrismaClient()
 
 server.register(cors, {
-  origin: ['http://localhost:3000', 'https://habitto.life']
+  origin: ['http://127.0.0.1:5173', 'https://habitto.life']
 })
 
 server.get('/', () => {
