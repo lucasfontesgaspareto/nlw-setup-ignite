@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 function HomeScreen() {
-  return <View></View>
+  return <View className=""></View>
 }
 
 export default HomeScreen
