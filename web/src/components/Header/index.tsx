@@ -1,4 +1,4 @@
-import logoSVG from './assets/logo.svg'
+import logoSVG from '../../assets/logo.svg'
 import { PlusIcon } from '@heroicons/react/24/solid'
 
 function Header() {
