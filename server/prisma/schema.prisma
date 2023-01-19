@@ -39,7 +39,7 @@ model Day {
   dayHabits DayHabit[]
 
   @@unique([date])
-  @@map("day")
+  @@map("days")
 }
 
 model DayHabit {
