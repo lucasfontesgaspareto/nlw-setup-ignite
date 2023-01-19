@@ -3,8 +3,8 @@ import SummaryTable from './components/SummaryTable'
 
 function App() {
   return (
-    <div className="w-screen h-screen bg-dark text-white flex justify-center items-center">
-      <div className="w-full max-w-5xl px-6 flex flex-col gap-16">
+    <div className="flex items-center justify-center w-screen h-screen">
+      <div className="flex flex-col w-full max-w-5xl gap-16 px-6">
         <Header />
         <SummaryTable />
       </div>
