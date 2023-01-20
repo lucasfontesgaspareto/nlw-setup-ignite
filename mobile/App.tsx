@@ -8,12 +8,7 @@ import {
   Inter_800ExtraBold
 } from '@expo-google-fonts/inter'
 import { Loading } from './src/components/Loading'
-import HomeScreen from './src/screens/Home'
-
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
-const Stack = createNativeStackNavigator()
+import Routes from './src/routes'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,15 +23,13 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+    <>
+      <Routes />
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-    </NavigationContainer>
+    </>
   )
 }
