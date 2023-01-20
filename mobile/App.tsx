@@ -10,6 +10,11 @@ import {
 import { Loading } from './src/components/Loading'
 import HomeScreen from './src/screens/Home'
 
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+const Stack = createNativeStackNavigator()
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -23,13 +28,15 @@ export default function App() {
   }
 
   return (
-    <>
-      <HomeScreen></HomeScreen>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
         translucent
       />
-    </>
+    </NavigationContainer>
   )
 }
