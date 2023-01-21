@@ -48,7 +48,7 @@ function NewHabitScreen() {
         </Text>
 
         <TextInput
-          className="h-12 pl-4 mt-3 text-white rounded-lg bg-zinc-800 focus:border-2 focus:border-green-600"
+          className="h-12 pl-4 mt-3 text-white border-2 rounded-lg bg-zinc-900 border-zinc-800 focus:border-green-600 "
           placeholderTextColor={colors.zinc[400]}
           placeholder="Exercícios, dormir bem, etc..."
         />

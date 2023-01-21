@@ -27,7 +27,7 @@ function Checkbox({ checked = false, title, ...props }: CheckboxProps) {
         <View className="items-center justify-center w-8 h-8 rounded-lg bg-zinc-900" />
       )}
 
-      <Text className="ml-3 text-base text-white">{title}</Text>
+      <Text className="ml-3 text-base font-semibold text-white">{title}</Text>
     </TouchableOpacity>
   )
 }
