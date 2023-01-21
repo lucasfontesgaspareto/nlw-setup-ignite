@@ -1,3 +1,5 @@
+import { CheckIcon } from '@heroicons/react/24/solid'
+import * as Checkbox from '@radix-ui/react-checkbox'
 import * as Popover from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import ProgressBar from '../ProgressBar'
@@ -6,11 +8,6 @@ type SummaryItemProps = {
   future?: boolean
   completed?: number
   amount?: number
-}
-
-const completedProggressStyle = {
-  0: 'bg-zinc-900',
-  25: 'bg-violet-200'
 }
 
 function SummaryItem({ future, amount = 0, completed = 0 }: SummaryItemProps) {
@@ -43,6 +40,20 @@ function SummaryItem({ future, amount = 0, completed = 0 }: SummaryItemProps) {
           <span className="font-semibold text-zinc-400">segunda-feira</span>
           <span className="mt-1 text-3xl font-bold leading-tight">19/01</span>
           <ProgressBar progress={completedPercentage} />
+
+          <div className="flex flex-col gap-3 mt-6">
+            <Checkbox.Root className="flex items-center gap-3 group">
+              <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+                <Checkbox.Indicator>
+                  <CheckIcon width={20} className="text-white" />
+                </Checkbox.Indicator>
+              </div>
+              <span className="text-xl font-semibold leading-tight text-white group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
+                Beber 2 litros de agua
+              </span>
+            </Checkbox.Root>
+          </div>
+
           <Popover.Arrow className="fill-zinc-900" height={8} width={16} />
         </Popover.Content>
       </Popover.Portal>
