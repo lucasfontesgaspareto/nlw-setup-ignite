@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 
@@ -13,8 +14,10 @@ const minimumSummaryDatesSize = 18 * 5
 const amountOfDaysToFill = minimumSummaryDatesSize - WEEK_DAYS.length
 
 function HomeScreen() {
+  const { navigate } = useNavigation()
+
   return (
-    <View className="flex-1 bg-dark px-8 pt-16">
+    <View className="flex-1 px-8 pt-16 bg-dark">
       <Header />
 
       <View className="flex-row mt-6 mb-2">
@@ -22,7 +25,7 @@ function HomeScreen() {
           return (
             <Text
               key={`${weekDay}-${index}`}
-              className="text-zinc-400 text-xl font-bold text-center mx-1"
+              className="mx-1 text-xl font-bold text-center text-zinc-400"
               style={{ width: DAY_SIZE }}>
               {weekDay}
             </Text>
@@ -35,7 +38,12 @@ function HomeScreen() {
         contentContainerStyle={{ paddingBottom: 100 }}>
         <View className="flex-row flex-wrap">
           {datesFromYearStart.map((date) => {
-            return <HabitDay key={date.toISOString()} />
+            return (
+              <HabitDay
+                onPress={() => navigate('habit', { date: date.toISOString() })}
+                key={date.toISOString()}
+              />
+            )
           })}
           {Array.from({ length: amountOfDaysToFill }).map((_, index) => {
             return <HabitDay key={index} future />
