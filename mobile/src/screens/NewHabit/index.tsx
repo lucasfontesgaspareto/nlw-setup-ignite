@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native'
 import BackButton from '../../components/BackButton'
 import Checkbox from '../../components/Checkbox'
@@ -38,6 +39,10 @@ function NewHabitScreen() {
 
   const handleSubmit = async () => {
     if (!title || weekDays.length === 0) {
+      Alert.alert(
+        'Atenção',
+        'Informe um nome e ao menos um dia de recorrência.'
+      )
       return
     }
 
@@ -48,6 +53,8 @@ function NewHabitScreen() {
 
     setTitle('')
     setWeekDays([])
+
+    Alert.alert('Parabéns', 'Hábito criado com sucesso!')
   }
 
   return (
