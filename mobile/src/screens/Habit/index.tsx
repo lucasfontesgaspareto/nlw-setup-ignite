@@ -3,9 +3,8 @@ import React from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import BackButton from '../../components/BackButton'
 import dayjs from 'dayjs'
-import { Feather } from '@expo/vector-icons'
-import colors from 'tailwindcss/colors'
 import ProgressBar from '../../components/ProgressBar'
+import Checkbox from '../../components/Checkbox'
 
 type HabitScreenParams = {
   date: string
@@ -33,6 +32,11 @@ function HabitScreen() {
             {dayAndMonth}
           </Text>
           <ProgressBar progress={75} />
+
+          <View className="mt-6">
+            <Checkbox title="Beber 2 litros de agua" checked={false}></Checkbox>
+            <Checkbox title="Caminhas" checked={true}></Checkbox>
+          </View>
         </View>
       </ScrollView>
     </View>
