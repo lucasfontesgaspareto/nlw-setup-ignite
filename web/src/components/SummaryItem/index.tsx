@@ -2,15 +2,22 @@ import { CheckIcon } from '@heroicons/react/24/solid'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import * as Popover from '@radix-ui/react-popover'
 import clsx from 'clsx'
+import dayjs from 'dayjs'
 import ProgressBar from '../ProgressBar'
 
 type SummaryItemProps = {
+  date?: Date
   future?: boolean
   completed?: number
   amount?: number
 }
 
-function SummaryItem({ future, amount = 0, completed = 0 }: SummaryItemProps) {
+function SummaryItem({
+  date,
+  future,
+  amount = 0,
+  completed = 0
+}: SummaryItemProps) {
   const completedPercentage = Math.round((completed / amount) * 100)
 
   return (
@@ -37,8 +44,12 @@ function SummaryItem({ future, amount = 0, completed = 0 }: SummaryItemProps) {
 
       <Popover.Portal>
         <Popover.Content className="min-w-[320px] p-6 rounded-2xl bg-zinc-900 flex flex-col">
-          <span className="font-semibold text-zinc-400">segunda-feira</span>
-          <span className="mt-1 text-3xl font-bold leading-tight">19/01</span>
+          <span className="font-semibold text-zinc-400">
+            {dayjs(date).format('dddd')}
+          </span>
+          <span className="mt-1 text-3xl font-bold leading-tight">
+            {dayjs(date).format('DD/MM')}
+          </span>
           <ProgressBar progress={completedPercentage} />
 
           <div className="flex flex-col gap-3 mt-6">
