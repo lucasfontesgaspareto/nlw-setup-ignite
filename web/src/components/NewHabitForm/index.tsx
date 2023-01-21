@@ -1,6 +1,7 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { FormEvent, useState } from 'react'
+import { api } from '../../lib/axios'
 
 const availableWeekDays = [
   'Domingo',
@@ -16,10 +17,21 @@ function NewHabitForm() {
   const [title, setTitle] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    console.log(title)
-    console.log(weekDays)
+
+    if (!title || weekDays.length === 0) {
+      return
+    }
+
+    await api.post('/habits', {
+      title,
+      weekDays
+    })
+
+    setTitle('')
+    setWeekDays([])
+    alert('Hábito criado com sucesso!')
   }
 
   const handleToogleWeekDays = (weekDayIndex: number) => {
@@ -40,6 +52,8 @@ function NewHabitForm() {
       <input
         type="text"
         id="text"
+        autoFocus
+        value={title}
         placeholder="Ex.: Exercícios, Dormir Bem, etc..."
         className="p-4 mt-3 text-white rounded-lg bg-zinc-800 placeholder:text-zinc-400"
         onChange={(event) => setTitle(event.target.value)}
