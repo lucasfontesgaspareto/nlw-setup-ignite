@@ -83,6 +83,7 @@ function HomeScreen() {
                   })
                 }
                 key={date.toISOString()}
+                date={date}
                 amount={dayInSummary?.amount}
                 completed={dayInSummary?.completed}
               />

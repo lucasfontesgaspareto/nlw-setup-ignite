@@ -5,6 +5,7 @@ import BackButton from '../../components/BackButton'
 import dayjs from 'dayjs'
 import ProgressBar from '../../components/ProgressBar'
 import Checkbox from '../../components/Checkbox'
+import { generateProgressPercentage } from '../../utils/generate-progress-percentage'
 
 type HabitScreenParams = {
   date: string
@@ -14,9 +15,9 @@ type HabitScreenParams = {
 
 function HabitScreen() {
   const routes = useRoute()
-  const { date, amount = 0, completed = 0 } = routes.params as HabitScreenParams
+  const { date, amount, completed } = routes.params as HabitScreenParams
 
-  const completedPercentage = Math.round((completed / amount) * 100)
+  const completedPercentage = generateProgressPercentage(amount, completed)
 
   const parsedDate = dayjs(date)
   const dayOfWeek = parsedDate.format('dddd')
