@@ -4,6 +4,8 @@ import { DAY_SIZE } from '../../utils/constants'
 
 type HabitDayProps = TouchableOpacityProps & {
   future?: boolean
+  amount?: number
+  completed?: number
 }
 
 function HabitDay({ future, ...props }: HabitDayProps) {

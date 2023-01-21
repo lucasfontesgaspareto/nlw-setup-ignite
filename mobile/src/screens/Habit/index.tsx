@@ -8,11 +8,15 @@ import Checkbox from '../../components/Checkbox'
 
 type HabitScreenParams = {
   date: string
+  amount?: number
+  completed?: number
 }
 
 function HabitScreen() {
   const routes = useRoute()
-  const { date } = routes.params as HabitScreenParams
+  const { date, amount = 0, completed = 0 } = routes.params as HabitScreenParams
+
+  const completedPercentage = Math.round((completed / amount) * 100)
 
   const parsedDate = dayjs(date)
   const dayOfWeek = parsedDate.format('dddd')
@@ -31,7 +35,7 @@ function HabitScreen() {
           <Text className="text-3xl font-extrabold text-white">
             {dayAndMonth}
           </Text>
-          <ProgressBar progress={75} />
+          <ProgressBar progress={completedPercentage} />
 
           <View className="mt-6">
             <Checkbox title="Beber 2 litros de agua" checked={false}></Checkbox>
