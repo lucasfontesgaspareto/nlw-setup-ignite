@@ -10,6 +10,7 @@ import BackButton from '../../components/BackButton'
 import Checkbox from '../../components/Checkbox'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
+import { api } from '../../lib/axios'
 
 const availableWeekDays = [
   'Domingo',
@@ -22,6 +23,7 @@ const availableWeekDays = [
 ]
 
 function NewHabitScreen() {
+  const [title, setTitle] = useState('')
   const [weekDays, setWeekDays] = useState<number[]>([])
 
   const handleToggleWeekDay = (weekDayIndex: number) => {
@@ -32,6 +34,20 @@ function NewHabitScreen() {
     } else {
       setWeekDays((prevState) => [...prevState, weekDayIndex])
     }
+  }
+
+  const handleSubmit = async () => {
+    if (!title || weekDays.length === 0) {
+      return
+    }
+
+    await api.post('/habits', {
+      title,
+      weekDays
+    })
+
+    setTitle('')
+    setWeekDays([])
   }
 
   return (
@@ -51,6 +67,8 @@ function NewHabitScreen() {
           className="h-12 pl-4 mt-3 text-white border-2 rounded-lg bg-zinc-900 border-zinc-800 focus:border-green-600 "
           placeholderTextColor={colors.zinc[400]}
           placeholder="Exercícios, dormir bem, etc..."
+          value={title}
+          onChangeText={setTitle}
         />
 
         <Text className="mt-4 mb-3 text-base font-semibold text-white">
@@ -67,6 +85,7 @@ function NewHabitScreen() {
         ))}
 
         <TouchableOpacity
+          onPress={handleSubmit}
           className="flex-row items-center justify-center w-full mt-6 bg-green-600 rounded-md h-14"
           activeOpacity={0.7}>
           <Feather name="check" color={colors.white} size={20}></Feather>
