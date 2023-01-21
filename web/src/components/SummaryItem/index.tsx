@@ -3,6 +3,8 @@ import * as Checkbox from '@radix-ui/react-checkbox'
 import * as Popover from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
+import { useState, useEffect } from 'react'
+import { api } from '../../lib/axios'
 import ProgressBar from '../ProgressBar'
 
 type SummaryItemProps = {
@@ -12,6 +14,12 @@ type SummaryItemProps = {
   amount?: number
 }
 
+export interface IPossibleHabit {
+  id: string
+  title: string
+  created_at: string
+}
+
 function SummaryItem({
   date,
   future,
@@ -19,6 +27,17 @@ function SummaryItem({
   completed = 0
 }: SummaryItemProps) {
   const completedPercentage = Math.round((completed / amount) * 100)
+
+  const [possibleHabits, setPossibleHabits] = useState<IPossibleHabit[]>([])
+
+  const fetchPossibleHabits = async () => {
+    const res = await api.get<IPossibleHabit[]>('/day')
+    setPossibleHabits(res.data)
+  }
+
+  useEffect(() => {
+    fetchPossibleHabits()
+  }, [])
 
   return (
     <Popover.Root>
