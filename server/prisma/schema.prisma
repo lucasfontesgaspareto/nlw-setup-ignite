@@ -26,10 +26,11 @@ model Habit {
 
 model HabitWeekDay {
   id       String @id @default(uuid())
-  habit    Habit  @relation(fields: [habit_id], references: [id])
   habit_id String
   week_day Int
+  habit    Habit  @relation(fields: [habit_id], references: [id])
 
+  @@unique([habit_id, week_day])
   @@map("habit_week_days")
 }
 
