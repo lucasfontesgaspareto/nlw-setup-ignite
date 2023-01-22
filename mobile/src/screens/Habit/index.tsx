@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import BackButton from '../../components/BackButton'
@@ -26,6 +26,7 @@ export interface IDay {
 }
 
 function HabitScreen() {
+  const { navigate } = useNavigation()
   const routes = useRoute()
   const { date, amount, completed } = routes.params as HabitScreenParams
 
@@ -104,9 +105,20 @@ function HabitScreen() {
                   key={habit.id}
                   title={habit.title}
                   onPress={() => handleToggleHabit(habit.id)}
-                  checked={completedHabits.includes(habit.id)}></Checkbox>
+                  checked={completedHabits?.includes(habit.id)}></Checkbox>
               )
             })}
+
+            {possibleHabits?.length ? null : (
+              <Text className="text-white">
+                Nenhum hábito cadastro para este dia 🤔
+                <Text
+                  className="text-base underline text-violet-400 active:text-violet-500"
+                  onPress={() => navigate('new-habit')}>
+                  comece cadastrando um
+                </Text>
+              </Text>
+            )}
           </View>
         </View>
       </ScrollView>
