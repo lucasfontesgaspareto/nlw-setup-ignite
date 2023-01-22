@@ -12,7 +12,9 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import env from '@fastify/env'
+import bcrypt from 'fastify-bcrypt'
 import { appRoutes } from './routes'
+import { User } from '@prisma/client'
 
 const schema = {
   type: 'object',
@@ -40,12 +42,27 @@ const options = {
 const server = Fastify()
 
 server.register(env, options).then(() => {
+  server.register(bcrypt, {
+    saltWorkFactor: 12
+  })
+
   server.register(cors, {
     origin: [server.config.FRONTEND_URL]
   })
 
   server.register(jwt, {
     secret: server.config.JWT_SECRET_KEY
+  })
+
+  server.addHook('preHandler', async (request, reply) => {
+    try {
+      // make this urls public
+      if (!['/signup', '/signin'].includes(request.url)) {
+        await request.jwtVerify<User>()
+      }
+    } catch (err) {
+      reply.send(err)
+    }
   })
 
   server.register(appRoutes)

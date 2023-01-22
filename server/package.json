@@ -14,6 +14,7 @@
     "@prisma/client": "^4.8.1",
     "dayjs": "^1.11.7",
     "fastify": "^4.11.0",
+    "fastify-bcrypt": "^1.0.1",
     "zod": "^3.20.2"
   },
   "devDependencies": {
