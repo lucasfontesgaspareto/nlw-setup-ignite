@@ -19,6 +19,65 @@ export interface IPossibleHabit {
   title: string
   created_at: string
 }
+export interface IDay {
+  completedHabits: string[]
+  possibleHabits: IPossibleHabit[]
+}
+
+type HabitListProps = {
+  date: string
+  completedPercentage: number
+}
+
+function HabitList({ date, completedPercentage }: HabitListProps) {
+  const [possibleHabits, setPossibleHabits] = useState<IPossibleHabit[]>([])
+  const [completedHabits, setCompletedHabits] = useState<string[]>([])
+
+  const fetchPossibleHabits = async () => {
+    const res = await api.get<IDay>('/day', {
+      params: {
+        date
+      }
+    })
+
+    if (res.data) {
+      setPossibleHabits(res.data.possibleHabits)
+      setCompletedHabits(res.data.completedHabits)
+    }
+  }
+
+  useEffect(() => {
+    fetchPossibleHabits()
+  }, [])
+
+  return (
+    <>
+      <ProgressBar
+        progress={possibleHabits?.length ? completedPercentage : 0}
+      />
+      <div className="flex flex-col gap-3 mt-6">
+        {possibleHabits?.map((possibleHabit) => {
+          return (
+            <Checkbox.Root
+              checked={completedHabits?.includes(possibleHabit.id)}
+              className="flex items-center gap-3 group">
+              <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+                <Checkbox.Indicator>
+                  <CheckIcon width={20} className="text-white" />
+                </Checkbox.Indicator>
+              </div>
+              <span
+                key={possibleHabit.id}
+                className="text-xl font-semibold leading-tight text-white group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
+                {possibleHabit.title}
+              </span>
+            </Checkbox.Root>
+          )
+        })}
+      </div>
+    </>
+  )
+}
 
 function SummaryItem({
   date,
@@ -27,17 +86,6 @@ function SummaryItem({
   completed = 0
 }: SummaryItemProps) {
   const completedPercentage = Math.round((completed / amount) * 100)
-
-  const [possibleHabits, setPossibleHabits] = useState<IPossibleHabit[]>([])
-
-  const fetchPossibleHabits = async () => {
-    const res = await api.get<IPossibleHabit[]>('/day')
-    setPossibleHabits(res.data)
-  }
-
-  useEffect(() => {
-    fetchPossibleHabits()
-  }, [])
 
   return (
     <Popover.Root>
@@ -69,20 +117,11 @@ function SummaryItem({
           <span className="mt-1 text-3xl font-bold leading-tight">
             {dayjs(date).format('DD/MM')}
           </span>
-          <ProgressBar progress={completedPercentage} />
 
-          <div className="flex flex-col gap-3 mt-6">
-            <Checkbox.Root className="flex items-center gap-3 group">
-              <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
-                <Checkbox.Indicator>
-                  <CheckIcon width={20} className="text-white" />
-                </Checkbox.Indicator>
-              </div>
-              <span className="text-xl font-semibold leading-tight text-white group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
-                Beber 2 litros de agua
-              </span>
-            </Checkbox.Root>
-          </div>
+          <HabitList
+            date={date?.toISOString()!}
+            completedPercentage={completedPercentage}
+          />
 
           <Popover.Arrow className="fill-zinc-900" height={8} width={16} />
         </Popover.Content>
