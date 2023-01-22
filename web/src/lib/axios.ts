@@ -7,7 +7,7 @@ export const api = axios.create({
 api.interceptors.request.use((request: AxiosRequestConfig) => {
   request.headers.set(
     'Authorization',
-    `Bearer ${JSON.parse(localStorage['recoil-persist'])?.authState}`
+    `Bearer ${JSON.parse(localStorage['recoil-persist'] || '{}')?.authState}`
   )
 
   return request

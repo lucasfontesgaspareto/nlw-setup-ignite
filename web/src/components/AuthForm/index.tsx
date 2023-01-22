@@ -15,18 +15,22 @@ function AuthForm({ panel }: AuthFormProps) {
   const [password, setPassword] = useState('')
 
   const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault()
+    try {
+      event.preventDefault()
 
-    if (!username || !password) {
-      return
+      if (!username || !password) {
+        return
+      }
+
+      const res = await api.post(panel === 'login' ? '/signin' : '/signup', {
+        username,
+        password
+      })
+
+      setAuth(res.data.token)
+    } catch (error) {
+      alert((error as any).response.data.message || (error as any).message)
     }
-
-    const res = await api.post(panel === 'login' ? '/signin' : '/signup', {
-      username,
-      password
-    })
-
-    setAuth(res.data.token)
   }
 
   return (
