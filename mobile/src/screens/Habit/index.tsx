@@ -12,7 +12,7 @@ import { Loading } from '../../components/Loading'
 type HabitScreenParams = {
   date: string
   amount?: number
-  completed?: number
+  defaultCompleted?: number
 }
 
 export interface IPossibleHabit {
@@ -28,8 +28,9 @@ export interface IDay {
 function HabitScreen() {
   const { navigate } = useNavigation()
   const routes = useRoute()
-  const { date, amount, completed } = routes.params as HabitScreenParams
+  const { date, amount, defaultCompleted } = routes.params as HabitScreenParams
 
+  const [completed, setComplted] = useState(defaultCompleted)
   const completedPercentage = generateProgressPercentage(amount, completed)
 
   const parsedDate = dayjs(date)
@@ -77,6 +78,10 @@ function HabitScreen() {
   useEffect(() => {
     fetchPossibleHabits()
   }, [])
+
+  useEffect(() => {
+    setComplted(completedHabits?.length)
+  }, [completedHabits])
 
   if (loading) {
     return <Loading />

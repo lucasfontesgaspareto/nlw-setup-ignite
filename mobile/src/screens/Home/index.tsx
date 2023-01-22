@@ -81,7 +81,7 @@ function HomeScreen() {
                   navigate('habit', {
                     date: date.toISOString(),
                     amount: dayInSummary?.amount,
-                    completed: dayInSummary?.completed
+                    defaultCompleted: dayInSummary?.completed
                   })
                 }
                 key={date.toISOString()}

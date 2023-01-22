@@ -5,7 +5,7 @@ export declare global {
       habit: {
         date: string
         amount?: number
-        completed?: number
+        defaultCompleted?: number
       }
       'new-habit': undefined
     }
