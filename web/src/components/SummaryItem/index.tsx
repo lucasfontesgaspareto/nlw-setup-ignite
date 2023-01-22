@@ -46,6 +46,8 @@ function HabitList({ date, completedPercentage }: HabitListProps) {
     }
   }
 
+  const isPast = dayjs(date).endOf('day').isBefore(new Date())
+
   useEffect(() => {
     fetchPossibleHabits()
   }, [])
@@ -59,6 +61,7 @@ function HabitList({ date, completedPercentage }: HabitListProps) {
         {possibleHabits?.map((possibleHabit) => {
           return (
             <Checkbox.Root
+              disabled={isPast}
               checked={completedHabits?.includes(possibleHabit.id)}
               className="flex items-center gap-3 group">
               <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
