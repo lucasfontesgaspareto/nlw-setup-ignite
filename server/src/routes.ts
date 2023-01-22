@@ -219,6 +219,8 @@ export async function appRoutes(server: FastifyInstance) {
         ) as amount
       FROM
         days day
+      WHERE
+          day.user_id = ${(request.user as User).id}
     `
 
     return summary
