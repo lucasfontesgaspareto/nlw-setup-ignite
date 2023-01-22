@@ -11,7 +11,7 @@ function Header() {
       <Dialog.Root>
         <Dialog.Trigger
           type="button"
-          className="flex items-center gap-3 px-6 py-4 font-semibold border rounded-lg border-violet-500 hover:border-violet-300">
+          className="flex items-center gap-3 px-6 py-4 font-semibold transition-colors border rounded-lg border-violet-500 hover:border-violet-300">
           <PlusIcon width={20} className="text-violet-500" />
           Novo hábito
         </Dialog.Trigger>

@@ -71,7 +71,7 @@ function NewHabitForm() {
               checked={weekDays.includes(index)}
               className="flex items-center gap-3 group"
               key={weekDay}>
-              <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+              <div className="transition-colors flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
                 <Checkbox.Indicator>
                   <CheckIcon width={20} className="text-white" />
                 </Checkbox.Indicator>
@@ -84,7 +84,7 @@ function NewHabitForm() {
 
       <button
         type="submit"
-        className="flex items-center justify-center gap-3 p-4 mt-6 font-semibold bg-green-600 rounded-lg hover:bg-green-500 ">
+        className="flex items-center justify-center gap-3 p-4 mt-6 font-semibold transition-colors bg-green-600 rounded-lg hover:bg-green-500">
         <CheckIcon width={20} className="font-bold" />
         Confirmar
       </button>
