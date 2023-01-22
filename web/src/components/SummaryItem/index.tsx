@@ -55,10 +55,10 @@ function HabitList({ date, onCompletedChange }: HabitListProps) {
 
     if (isHabitAlreadyCompleted) {
       setCompletedHabits((prevState) =>
-        prevState.filter((id) => id !== habitId)
+        (prevState || []).filter((id) => id !== habitId)
       )
     } else {
-      setCompletedHabits((prevState) => prevState.concat(habitId))
+      setCompletedHabits((prevState) => (prevState || []).concat(habitId))
     }
   }
 
