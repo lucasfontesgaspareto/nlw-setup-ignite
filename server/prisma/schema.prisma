@@ -20,6 +20,8 @@ model Habit {
   created_at DateTime
   dayHabits  DayHabit[]
   weekDays   HabitWeekDay[]
+  user_id    String
+  user       User           @relation(fields: [user_id], references: [id])
 
   @@map("habits")
 }
@@ -55,9 +57,10 @@ model DayHabit {
 }
 
 model User {
-  id       String @id @default(uuid())
-  username String @unique()
-  hash     String
+  id        String  @id @default(uuid())
+  username  String  @unique()
+  hash      String
+  my_habits Habit[]
 
   @@map("users")
 }

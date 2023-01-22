@@ -13,7 +13,7 @@ export async function appRoutes(server: FastifyInstance) {
 
     const { username, password } = createHabitBody.parse(request.body)
 
-    const userExists = await prisma.user.findFirst({
+    const userExists = await prisma.user.findUnique({
       where: {
         username
       }
@@ -90,7 +90,8 @@ export async function appRoutes(server: FastifyInstance) {
             week_day: day
           }))
         },
-        created_at: today
+        created_at: today,
+        user_id: (request.user as User).id
       }
     })
   })
@@ -114,7 +115,8 @@ export async function appRoutes(server: FastifyInstance) {
           some: {
             week_day: weekDay
           }
-        }
+        },
+        user_id: (request.user as User).id
       }
     })
 
