@@ -5,13 +5,17 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "seed": "tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@fastify/cors": "^8.2.0",
+    "@fastify/env": "^4.2.0",
+    "@fastify/jwt": "^6.5.0",
     "@prisma/client": "^4.8.1",
     "dayjs": "^1.11.7",
     "fastify": "^4.11.0",
+    "fastify-bcrypt": "^1.0.1",
     "zod": "^3.20.2"
   },
   "devDependencies": {
