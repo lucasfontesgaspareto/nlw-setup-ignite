@@ -55,7 +55,7 @@ function NewHabitForm() {
         autoFocus
         value={title}
         placeholder="Ex.: Exercícios, Dormir Bem, etc..."
-        className="p-4 mt-3 text-white rounded-lg bg-zinc-800 placeholder:text-zinc-400"
+        className="p-4 mt-3 text-white rounded-lg bg-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-zinc-900"
         onChange={(event) => setTitle(event.target.value)}
       />
 
@@ -69,9 +69,9 @@ function NewHabitForm() {
             <Checkbox.Root
               onClick={() => handleToogleWeekDays(index)}
               checked={weekDays.includes(index)}
-              className="flex items-center gap-3 group"
+              className="flex items-center gap-3 group focus:outline-none disabled:cursor-not-allowed"
               key={weekDay}>
-              <div className="transition-colors flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+              <div className="transition-colors flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 group-focus:ring-2 group-focus:ring-violet-500 group-focus:ring-offset-2 group-focus:ring-offset-dark">
                 <Checkbox.Indicator>
                   <CheckIcon width={20} className="text-white" />
                 </Checkbox.Indicator>
@@ -84,7 +84,7 @@ function NewHabitForm() {
 
       <button
         type="submit"
-        className="flex items-center justify-center gap-3 p-4 mt-6 font-semibold transition-colors bg-green-600 rounded-lg hover:bg-green-500">
+        className="flex items-center justify-center gap-3 p-4 mt-6 font-semibold transition-colors bg-green-600 rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
         <CheckIcon width={20} className="font-bold" />
         Confirmar
       </button>

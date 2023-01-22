@@ -11,7 +11,7 @@ function Header() {
       <Dialog.Root>
         <Dialog.Trigger
           type="button"
-          className="flex items-center gap-3 px-6 py-4 font-semibold transition-colors border rounded-lg border-violet-500 hover:border-violet-300">
+          className="flex items-center gap-3 px-6 py-4 font-semibold transition-colors border rounded-lg border-violet-500 hover:border-violet-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-dark">
           <PlusIcon width={20} className="text-violet-500" />
           Novo hábito
         </Dialog.Trigger>
@@ -23,7 +23,7 @@ function Header() {
               Criar hábito
             </Dialog.Title>
             <Dialog.Description />
-            <Dialog.Close className="absolute right-6 top-6 text-zinc-400 hover:text-zinc-200">
+            <Dialog.Close className="absolute rounded-lg right-6 top-6 text-zinc-400 hover:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-zinc-900">
               <XMarkIcon width={24} aria-label="Fechar"></XMarkIcon>
             </Dialog.Close>
 

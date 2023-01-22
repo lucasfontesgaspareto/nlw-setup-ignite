@@ -79,8 +79,8 @@ function HabitList({ date, onCompletedChange }: HabitListProps) {
             onCheckedChange={() => handleToggleHabit(possibleHabit.id)}
             disabled={isPast}
             checked={completedHabits?.includes(possibleHabit.id)}
-            className="flex items-center gap-3 group">
-            <div className="transition-colors flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+            className="flex items-center gap-3 group focus:outline-none disabled:cursor-not-allowed">
+            <div className="transition-colors flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 group-focus:ring-2 group-focus:ring-violet-500 group-focus:ring-offset-2 group-focus:ring-offset-dark">
               <Checkbox.Indicator>
                 <CheckIcon width={20} className="text-white" />
               </Checkbox.Indicator>
@@ -114,7 +114,7 @@ function SummaryItem({
       <Popover.Trigger
         disabled={future}
         className={clsx(
-          `w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg transition-colors`,
+          `w-10 h-10 bg-zinc-900 border-2 border-zinc-800 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-dark`,
           {
             'cursor-pointer': !future,
             'opacity-40 cursor-not-allowed': future,
