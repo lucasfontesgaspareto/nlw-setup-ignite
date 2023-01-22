@@ -10,7 +10,7 @@ import ProgressBar from '../ProgressBar'
 type SummaryItemProps = {
   date?: Date
   future?: boolean
-  completed?: number
+  defaultCompleted?: number
   amount?: number
 }
 
@@ -26,10 +26,10 @@ export interface IDay {
 
 type HabitListProps = {
   date: string
-  completedPercentage: number
+  onCompletedChange(completedHabits: number): void
 }
 
-function HabitList({ date, completedPercentage }: HabitListProps) {
+function HabitList({ date, onCompletedChange }: HabitListProps) {
   const [possibleHabits, setPossibleHabits] = useState<IPossibleHabit[]>([])
   const [completedHabits, setCompletedHabits] = useState<string[]>([])
 
@@ -48,37 +48,50 @@ function HabitList({ date, completedPercentage }: HabitListProps) {
 
   const isPast = dayjs(date).endOf('day').isBefore(new Date())
 
+  const handleToggleHabit = async (habitId: string) => {
+    await api.patch(`/habits/${habitId}/toggle`)
+
+    const isHabitAlreadyCompleted = completedHabits?.includes(habitId)
+
+    if (isHabitAlreadyCompleted) {
+      setCompletedHabits((prevState) =>
+        prevState.filter((id) => id !== habitId)
+      )
+    } else {
+      setCompletedHabits((prevState) => prevState.concat(habitId))
+    }
+  }
+
   useEffect(() => {
     fetchPossibleHabits()
   }, [])
 
+  useEffect(() => {
+    onCompletedChange(completedHabits?.length || 0)
+  }, [completedHabits])
+
   return (
-    <>
-      <ProgressBar
-        progress={possibleHabits?.length ? completedPercentage : 0}
-      />
-      <div className="flex flex-col gap-3 mt-6">
-        {possibleHabits?.map((possibleHabit) => {
-          return (
-            <Checkbox.Root
-              disabled={isPast}
-              checked={completedHabits?.includes(possibleHabit.id)}
-              className="flex items-center gap-3 group">
-              <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
-                <Checkbox.Indicator>
-                  <CheckIcon width={20} className="text-white" />
-                </Checkbox.Indicator>
-              </div>
-              <span
-                key={possibleHabit.id}
-                className="text-xl font-semibold leading-tight text-white group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
-                {possibleHabit.title}
-              </span>
-            </Checkbox.Root>
-          )
-        })}
-      </div>
-    </>
+    <div className="flex flex-col gap-3 mt-6">
+      {possibleHabits?.map((possibleHabit) => {
+        return (
+          <Checkbox.Root
+            key={possibleHabit.id}
+            onCheckedChange={() => handleToggleHabit(possibleHabit.id)}
+            disabled={isPast}
+            checked={completedHabits?.includes(possibleHabit.id)}
+            className="flex items-center gap-3 group">
+            <div className="flex items-center justify-center w-8 h-8 border-2 rounded-lg bg-zinc-900 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+              <Checkbox.Indicator>
+                <CheckIcon width={20} className="text-white" />
+              </Checkbox.Indicator>
+            </div>
+            <span className="text-xl font-semibold leading-tight text-white group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
+              {possibleHabit.title}
+            </span>
+          </Checkbox.Root>
+        )
+      })}
+    </div>
   )
 }
 
@@ -86,9 +99,15 @@ function SummaryItem({
   date,
   future,
   amount = 0,
-  completed = 0
+  defaultCompleted = 0
 }: SummaryItemProps) {
+  const [completed, setComleted] = useState(defaultCompleted)
+
   const completedPercentage = Math.round((completed / amount) * 100)
+
+  function handleCompletedChange(completedHabits: number) {
+    setComleted(completedHabits)
+  }
 
   return (
     <Popover.Root>
@@ -121,9 +140,11 @@ function SummaryItem({
             {dayjs(date).format('DD/MM')}
           </span>
 
+          <ProgressBar progress={completedPercentage} />
+
           <HabitList
             date={date?.toISOString()!}
-            completedPercentage={completedPercentage}
+            onCompletedChange={handleCompletedChange}
           />
 
           <Popover.Arrow className="fill-zinc-900" height={8} width={16} />

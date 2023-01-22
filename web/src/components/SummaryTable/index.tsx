@@ -19,10 +19,17 @@ export interface ISummary {
 
 function SummaryTable() {
   const [summary, setSummary] = useState<ISummary[]>([])
+  const [loading, setLoading] = useState(false)
 
   const fetchSummary = async () => {
-    const res = await api.get<ISummary[]>('/summary')
-    setSummary(res.data)
+    try {
+      setLoading(true)
+      const res = await api.get<ISummary[]>('/summary')
+      setSummary(res.data)
+    } catch (error) {
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -37,25 +44,28 @@ function SummaryTable() {
         ))}
       </div>
 
-      <div className="grid grid-flow-col gap-3 grid-rows-7">
-        {summaryDates.map((date) => {
-          const dayInSummary = summary.find((day) => {
-            return dayjs(date).isSame(day.date, 'day')
-          })
+      {loading ? null : (
+        <div className="grid grid-flow-col gap-3 grid-rows-7">
+          {summaryDates.map((date) => {
+            const dayInSummary = summary.find((day) => {
+              return dayjs(date).isSame(day.date, 'day')
+            })
 
-          return (
-            <SummaryItem
-              key={date.toString()}
-              date={date}
-              amount={dayInSummary?.amount}
-              completed={dayInSummary?.completed}
-            />
-          )
-        })}
-        {Array.from({ length: amountOfDaysToFill }).map((_, index) => (
-          <SummaryItem key={index} future />
-        ))}
-      </div>
+            return (
+              <SummaryItem
+                key={date.toString()}
+                date={date}
+                amount={dayInSummary?.amount}
+                defaultCompleted={dayInSummary?.completed}
+              />
+            )
+          })}
+
+          {Array.from({ length: amountOfDaysToFill }).map((_, index) => (
+            <SummaryItem key={index} future />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
