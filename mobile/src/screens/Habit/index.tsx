@@ -103,6 +103,7 @@ function HabitScreen() {
                   disabled={isPast}
                   key={habit.id}
                   title={habit.title}
+                  onPress={() => handleToggleHabit(habit.id)}
                   checked={completedHabits.includes(habit.id)}></Checkbox>
               )
             })}
