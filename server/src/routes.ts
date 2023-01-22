@@ -214,7 +214,7 @@ export async function appRoutes(server: FastifyInstance) {
             FROM habit_week_days hwd
             JOIN habits h
               ON h.id = hwd.habit_id
-           WHERE hwd.week_day = cast(strftime('%w', day.date / 1000, 'unixepoch') as int)
+           WHERE hwd.week_day = extract(dow from day.date)::int
              AND h.created_at <= day.date
         ) as amount
       FROM
