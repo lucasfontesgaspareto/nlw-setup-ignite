@@ -122,7 +122,10 @@ export async function appRoutes(server: FastifyInstance) {
 
     const day = await prisma.day.findUnique({
       where: {
-        date: parsedDate.toDate()
+        date_user_id: {
+          date: parsedDate.toDate(),
+          user_id: (request.user as User).id
+        }
       },
       include: {
         dayHabits: true
@@ -143,16 +146,30 @@ export async function appRoutes(server: FastifyInstance) {
 
     const today = dayjs().startOf('day').toDate()
 
-    let day = await prisma.day.findUnique({
+    // check if the habit is of the user
+    const userHabit = await prisma.habit.findFirst({
       where: {
-        date: today
+        id,
+        user_id: (request.user as User).id
+      }
+    })
+
+    if (!userHabit) {
+      throw new Error('You dont have access to this habit')
+    }
+
+    let day = await prisma.day.findFirst({
+      where: {
+        date: today,
+        user_id: (request.user as User).id
       }
     })
 
     if (!day) {
       day = await prisma.day.create({
         data: {
-          date: today
+          date: today,
+          user_id: (request.user as User).id
         }
       })
     }

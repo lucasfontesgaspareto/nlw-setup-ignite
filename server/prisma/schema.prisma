@@ -40,8 +40,10 @@ model Day {
   id        String     @id @default(uuid())
   date      DateTime
   dayHabits DayHabit[]
+  user_id   String
+  user      User       @relation(fields: [user_id], references: [id])
 
-  @@unique([date])
+  @@unique([date, user_id])
   @@map("days")
 }
 
@@ -61,6 +63,7 @@ model User {
   username  String  @unique()
   hash      String
   my_habits Habit[]
+  days      Day[]
 
   @@map("users")
 }
