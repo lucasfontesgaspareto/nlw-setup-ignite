@@ -17,13 +17,14 @@ export interface ISummary {
   amount: number
 }
 
+let timeoutId: number | null
+
 function SummaryTable() {
   const [summary, setSummary] = useState<ISummary[]>([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const fetchSummary = async () => {
     try {
-      setLoading(true)
       const res = await api.get<ISummary[]>('/summary')
       setSummary(res.data)
     } catch (error) {
@@ -33,7 +34,21 @@ function SummaryTable() {
   }
 
   useEffect(() => {
-    fetchSummary()
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+      timeoutId = null
+    }
+
+    timeoutId = setTimeout(() => {
+      fetchSummary()
+    }, 500)
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = null
+      }
+    }
   }, [])
 
   return (

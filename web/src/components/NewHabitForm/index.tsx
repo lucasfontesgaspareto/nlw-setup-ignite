@@ -51,7 +51,7 @@ function NewHabitForm() {
       </label>
       <input
         type="text"
-        id="text"
+        id="title"
         autoFocus
         value={title}
         placeholder="Ex.: Exercícios, Dormir Bem, etc..."

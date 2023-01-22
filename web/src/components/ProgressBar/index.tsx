@@ -4,7 +4,7 @@ type ProgressBarProps = {
 
 function ProgressBar({ progress = 0 }: ProgressBarProps) {
   const progressStyle = {
-    width: `${progress}%`
+    width: `${progress || 0}%`
   }
 
   return (
