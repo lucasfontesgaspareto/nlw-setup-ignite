@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 
 import HabitDay from '../../components/HabitDay'
@@ -39,9 +39,11 @@ function HomeScreen() {
     }
   }
 
-  useEffect(() => {
-    fetchSummary()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      fetchSummary()
+    }, [])
+  )
 
   if (loading) {
     return <Loading />

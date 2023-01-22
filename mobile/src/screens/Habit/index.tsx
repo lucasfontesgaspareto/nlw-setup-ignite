@@ -115,7 +115,7 @@ function HabitScreen() {
                 <Text
                   className="text-base underline text-violet-400 active:text-violet-500"
                   onPress={() => navigate('new-habit')}>
-                  comece cadastrando um
+                  comece cadastrando um.
                 </Text>
               </Text>
             )}
