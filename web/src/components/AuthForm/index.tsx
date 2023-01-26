@@ -22,6 +22,14 @@ function AuthForm({ panel }: AuthFormProps) {
         return
       }
 
+      if (username.length < 3 || username.length > 30) {
+        return alert("O nome de usuário deve ter no mínimo 3 caracteres e no máximo 30 caracteres.");
+      }
+
+      if (password.length < 6 || password.length > 30) {
+        return alert("A senha deve ter no mínimo 6 caracteres e no máximo 30 caracteres.");
+      }
+
       const res = await api.post(panel === 'login' ? '/signin' : '/signup', {
         username,
         password
